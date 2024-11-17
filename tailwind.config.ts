@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      bg: {
+        button: "#DB2777",
+      },
     },
   },
   plugins: [],
