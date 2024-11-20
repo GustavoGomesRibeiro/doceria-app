@@ -3,14 +3,18 @@ import { create } from "zustand";
 type CartState = {
   removeProduct(id: number): unknown;
   updateTotal(): unknown;
+  addProduct: (product: { id: number; name: string; price: number }) => void;
+  updateStateCart: () => void;
+  decreaseProductQuantity: (id: number) => void;
+  incrementProductQuantity: (id: number) => void;
   cart: { id: number; name: string; price: number; quantity: number }[];
   total: string;
-  addProduct: (product: { id: number; name: string; price: number }) => void;
+  openCart: boolean;
 };
 const useCartStore = create<CartState>((set, get) => ({
   cart: [],
   total: "0",
-
+  openCart: false,
   addProduct: (product) => {
     const cart = get().cart;
 
@@ -56,6 +60,22 @@ const useCartStore = create<CartState>((set, get) => ({
 
     get().updateTotal();
   },
+  incrementProductQuantity: (id: number) => {
+    const cart = get().cart;
+    const product = cart.find((item) => item.id === id);
+
+    if (product && product.quantity > 1) {
+      set({
+        cart: cart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        ),
+      });
+    } else {
+      get().removeProduct(id);
+    }
+
+    get().updateTotal();
+  },
 
   clearCart: () => {
     set({ cart: [], total: "0" });
@@ -67,6 +87,7 @@ const useCartStore = create<CartState>((set, get) => ({
       .toFixed(2);
     set({ total });
   },
+  updateStateCart: () => set((state) => ({ openCart: !state.openCart })),
 }));
 
 export default useCartStore;

@@ -1,10 +1,12 @@
 import { IoIosArrowForward } from "react-icons/io";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoMenu } from "react-icons/io5";
-import { Text, Button, Card } from "@/components/index";
+import { Text, Button, Card, Container, Cart } from "@/components/index";
 import Image from "next/image";
+import useCartStore from "../store/cart.store";
 
 const Home = () => {
+  const { updateStateCart, openCart } = useCartStore();
   const products = [
     {
       id: 1,
@@ -33,11 +35,11 @@ const Home = () => {
   ];
 
   return (
-    <div className="w-screen h-screen">
+    <Container>
       <header className="flex justify-between bg-white p-10">
         <Text>Titulo site</Text>
         <div className="flex justify-center items-center">
-          <button className="mr-10">
+          <button className="mr-10" onClick={updateStateCart}>
             <LuShoppingCart size={30} color="#000" />
           </button>
 
@@ -47,6 +49,7 @@ const Home = () => {
         </div>
       </header>
 
+      {openCart && <Cart />}
       <main className="flex h-screen flex-col justify-between items-center">
         <div className="justify-center items-center md:p-32 p-10">
           <Text className="font-bold text-3xl">
@@ -84,7 +87,7 @@ const Home = () => {
       {/* <footer className="bg-slate-800 p-10">
         <Text>footer</Text>
       </footer> */}
-    </div>
+    </Container>
   );
 };
 
