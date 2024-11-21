@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #fce7f3;
+  --background: #fff0e7;
   --foreground: #171717;
   --font-poppins: "Poppins", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #fce7f3;
+    --background: #fff0e7;
     --foreground: #000;
   }
 }

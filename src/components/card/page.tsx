@@ -9,13 +9,14 @@ import useCartStore from "@/app/store/cart.store";
 
 const Card: FC<CardProps> = ({ produtos }) => {
   const addProduct = useCartStore((state) => state.addProduct);
-  const cart = useCartStore((state) => state.cart);
 
-  console.log(cart, "cart");
   return (
     <div className="md:grid md:grid-cols-4 md:gap-4 p-5">
       {produtos.map((produto) => (
-        <div key={produto.id} className="shadow-md mb-5">
+        <div
+          key={produto.id}
+          className="shadow-md shadow-gray-500 mb-5 border-solid border-4 border-black rounded-b-md"
+        >
           <div className="bg-gray-500 rounded-tl-lg rounded-tr-lg">
             <Image
               src="/400.png"
@@ -34,7 +35,11 @@ const Card: FC<CardProps> = ({ produtos }) => {
                 R$ {produto.price}
               </Text>
               <Button
-                className="bg-[#DB2777] rounded-full p-2"
+                className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform 
+  hover:-translate-y-1.5 
+  transition-transform 
+  duration-250 
+  ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
                 addProduct={() => addProduct(produto)}
               >
                 <Text className="text-white">Adicionar</Text>
