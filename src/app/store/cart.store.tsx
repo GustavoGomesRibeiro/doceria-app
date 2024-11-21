@@ -64,14 +64,12 @@ const useCartStore = create<CartState>((set, get) => ({
     const cart = get().cart;
     const product = cart.find((item) => item.id === id);
 
-    if (product && product.quantity > 1) {
+    if (product) {
       set({
         cart: cart.map((item) =>
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         ),
       });
-    } else {
-      get().removeProduct(id);
     }
 
     get().updateTotal();
