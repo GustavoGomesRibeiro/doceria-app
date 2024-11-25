@@ -68,13 +68,7 @@ const Home = () => {
             com ingredientes selecionados.
           </Text>
 
-          <Button
-            className="bg-[#DB2777] rounded-full p-3 flex justify-center items-center shadow-md shadow-black hover:transform 
-  hover:-translate-y-1.5 
-  transition-transform 
-  duration-250 
-  ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
-          >
+          <Button className="bg-[#DB2777] rounded-full p-3 flex justify-center items-center shadow-md shadow-black hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]">
             <Text className="text-white">Ver cardápio</Text>
             <IoIosArrowForward size={22} color="#fff" />
           </Button>

@@ -35,11 +35,7 @@ const Card: FC<CardProps> = ({ produtos }) => {
                 R$ {produto.price}
               </Text>
               <Button
-                className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform 
-  hover:-translate-y-1.5 
-  transition-transform 
-  duration-250 
-  ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
+                className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
                 addProduct={() => addProduct(produto)}
               >
                 <Text className="text-white">Adicionar</Text>
