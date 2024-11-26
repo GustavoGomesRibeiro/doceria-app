@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description: "Doces Caseiros",
   icons: {
     icon: ["/favicon.ico?v=4"],
-    apple: ["/public/apple-touch-icon.png"],
     shortcut: ["/public/apple-touch-icon.png"],
   },
 };
