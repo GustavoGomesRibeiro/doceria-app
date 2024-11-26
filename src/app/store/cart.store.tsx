@@ -3,11 +3,11 @@ import { create } from "zustand";
 type CartState = {
   removeProduct(id: number): unknown;
   updateTotal(): unknown;
-  addProduct: (product: { id: number; name: string; price: number }) => void;
+  addProduct: (product: { id: number; titulo: string; preco: number }) => void;
   updateStateCart: () => void;
   decreaseProductQuantity: (id: number) => void;
   incrementProductQuantity: (id: number) => void;
-  cart: { id: number; name: string; price: number; quantity: number }[];
+  cart: { id: number; titulo: string; preco: number; quantity: number }[];
   total: string;
   openCart: boolean;
 };
@@ -81,7 +81,7 @@ const useCartStore = create<CartState>((set, get) => ({
 
   updateTotal: () => {
     const total = get()
-      .cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+      .cart.reduce((sum, item) => sum + item.preco * item.quantity, 0)
       .toFixed(2);
     set({ total });
   },

@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import { ConditionalRender, Text } from "@/components/index";
 
@@ -25,7 +27,7 @@ const Cart: FC = () => {
 
   const itemsToSend = useMemo(() => {
     return cart.map((item) => {
-      return `${item.quantity} ${item.name}`;
+      return `${item.quantity} ${item.titulo}`;
     });
   }, [cart]);
 
@@ -83,8 +85,8 @@ const Cart: FC = () => {
                   <main className="w-56">
                     <div className="flex justify-between p-2">
                       <div>
-                        <Text className="font-bold">{item.name}</Text>
-                        <Text className="font-bold">R$ {item.price}</Text>
+                        <Text className="font-bold">{item.titulo}</Text>
+                        <Text className="font-bold">R$ {item.preco}</Text>
                       </div>
                       <div className="mr-2">
                         <button onClick={() => removeProduct(item.id)}>

@@ -1,38 +1,40 @@
 import { IoIosArrowForward } from "react-icons/io";
 import { LuShoppingCart } from "react-icons/lu";
-import { IoMenu } from "react-icons/io5";
 import { Text, Button, Card, Container, Cart } from "@/components/index";
 import Image from "next/image";
 import useCartStore from "../store/cart.store";
+import { listarProdutos } from "../service/api/produtos";
+import { useEffect, useState } from "react";
+
+type Props = {
+  id: number;
+  documentId?: string;
+  titulo: string;
+  descricao: string;
+  preco: number;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+  locale?: string;
+};
 
 const Home = () => {
+  const [produtos, setProdutos] = useState<Props[]>([]);
   const { updateStateCart, openCart } = useCartStore();
-  const products = [
-    {
-      id: 1,
-      name: "Bolo de Chocolate",
-      price: 89.9,
-      description: "Bolo artesanal com cobertura de ganache",
-    },
-    {
-      id: 2,
-      name: "Pão de Mel",
-      price: 12.9,
-      description: "Tradicional com cobertura de chocolate",
-    },
-    {
-      id: 3,
-      name: "Torta de Morango",
-      price: 99.9,
-      description: "Torta fresca com morangos naturais",
-    },
-    {
-      id: 4,
-      name: "Bolo Red Velvet",
-      price: 109.9,
-      description: "Cobertura de cream cheese",
-    },
-  ];
+
+  useEffect(() => {
+    const fetchProdutos = async () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const response: any = await listarProdutos();
+        setProdutos(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProdutos();
+  }, []);
 
   return (
     <Container>
@@ -49,10 +51,6 @@ const Home = () => {
         <div className="flex justify-center items-center">
           <button className="mr-10" onClick={updateStateCart}>
             <LuShoppingCart size={30} color="#000" />
-          </button>
-
-          <button>
-            <IoMenu size={30} color="#000" />
           </button>
         </div>
       </header>
@@ -90,12 +88,8 @@ const Home = () => {
           <Text className="font-bold text-3xl">Nosso cardapio</Text>
         </div>
 
-        <Card produtos={products} />
+        <Card produtos={produtos} />
       </main>
-
-      {/* <footer className="bg-slate-800 p-10">
-        <Text>footer</Text>
-      </footer> */}
     </Container>
   );
 };

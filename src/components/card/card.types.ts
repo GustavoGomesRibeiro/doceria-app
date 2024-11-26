@@ -1,8 +1,8 @@
 type CardResponse = {
   id: number;
-  name: string;
-  price: number;
-  description: string;
+  titulo: string;
+  preco: number;
+  descricao: string;
 };
 
 export type CardProps = {

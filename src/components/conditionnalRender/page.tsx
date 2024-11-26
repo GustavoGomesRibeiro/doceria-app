@@ -4,7 +4,6 @@ type props = {
   children: React.ReactNode;
 };
 const ConditionalRender: FC<props> = ({ condition, children }) => {
-  return <div>{condition ? children : null}</div>;
+  return condition ? <div>{children}</div> : null;
 };
-
 export default ConditionalRender;
