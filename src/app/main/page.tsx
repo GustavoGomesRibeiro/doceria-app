@@ -1,3 +1,5 @@
+"use client";
+
 import { IoIosArrowForward } from "react-icons/io";
 import { LuShoppingCart } from "react-icons/lu";
 import { Text, Button, Card, Container, Cart } from "@/components/index";
