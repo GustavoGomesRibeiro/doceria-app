@@ -7,4 +7,5 @@ type CardResponse = {
 
 export type CardProps = {
   produtos: CardResponse[];
+  id: string;
 };

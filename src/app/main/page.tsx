@@ -69,7 +69,9 @@ const Home = () => {
           </Text>
 
           <Button className="bg-[#DB2777] rounded-full p-3 flex justify-center items-center shadow-md shadow-black hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]">
-            <Text className="text-white">Ver cardápio</Text>
+            <a href="#cardapio" className="text-white">
+              Ver cardápio
+            </a>
             <IoIosArrowForward size={22} color="#fff" />
           </Button>
         </div>
@@ -90,7 +92,7 @@ const Home = () => {
           <Text className="font-bold text-3xl">Nosso cardapio</Text>
         </div>
 
-        <Card produtos={produtos} />
+        <Card produtos={produtos} id="cardapio" />
       </main>
     </Container>
   );

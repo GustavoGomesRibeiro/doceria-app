@@ -12,12 +12,12 @@ import Image from "next/image";
 import { CardProps } from "./card.types";
 import useCartStore from "@/app/store/cart.store";
 
-const Card: FC<CardProps> = ({ produtos }) => {
+const Card: FC<CardProps> = ({ produtos, id }) => {
   const addProduct = useCartStore((state) => state.addProduct);
 
   return (
     <>
-      <div className="md:grid md:grid-cols-4 md:gap-4 p-5">
+      <div className="md:grid md:grid-cols-4 md:gap-4 p-5" id={id}>
         <ConditionalRender condition={Boolean(produtos.length)}>
           {produtos.map((produto) => (
             <div
