@@ -3,8 +3,9 @@ export const listarProdutos = async () => {
   const headersList = {
     Accept: "*/*",
   };
+  console.log(BASE_URL, "BASE_URL");
   try {
-    const response = await fetch(`${BASE_URL}api/consultar-produtos`, {
+    const response = await fetch(`${BASE_URL}/consultar-produtos`, {
       method: "GET",
       headers: headersList,
     });
