@@ -11,9 +11,11 @@ import {
 import Image from "next/image";
 import { CardProps } from "./card.types";
 import useCartStore from "@/app/store/cart.store";
+import useToastStore from "@/app/store/toast.store";
 
 const Card: FC<CardProps> = ({ produtos, id }) => {
   const addProduct = useCartStore((state) => state.addProduct);
+  const { addToast } = useToastStore();
 
   return (
     <>
@@ -43,7 +45,10 @@ const Card: FC<CardProps> = ({ produtos, id }) => {
                   </Text>
                   <Button
                     className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
-                    addProduct={() => addProduct(produto)}
+                    addProduct={() => {
+                      addProduct(produto);
+                      addToast();
+                    }}
                   >
                     <Text className="text-white">Adicionar</Text>
                   </Button>

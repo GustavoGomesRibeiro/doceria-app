@@ -7,6 +7,8 @@ import Image from "next/image";
 import useCartStore from "../store/cart.store";
 import { listarProdutos } from "../service/api/produtos";
 import { useEffect, useState } from "react";
+import useHandleEvent from "./useHandleEvent";
+import Toast from "@/components/toast/page";
 
 type Props = {
   id: number;
@@ -22,6 +24,7 @@ type Props = {
 
 const Home = () => {
   const [produtos, setProdutos] = useState<Props[]>([]);
+  const { reduceQuantity } = useHandleEvent();
   const { updateStateCart, openCart } = useCartStore();
 
   useEffect(() => {
@@ -40,6 +43,7 @@ const Home = () => {
 
   return (
     <Container>
+      <Toast />
       <header className="flex justify-between bg-white p-10 shadow-md mb-5">
         <div>
           <Image
@@ -54,6 +58,9 @@ const Home = () => {
           <button className="mr-10" onClick={updateStateCart}>
             <LuShoppingCart size={30} color="#000" />
           </button>
+          <label className="absolute top-[80px] bg-[#DB2777] rounded-xl w-6 h-6 flex justify-center items-center">
+            <Text className="text-white">{reduceQuantity()}</Text>
+          </label>
         </div>
       </header>
 

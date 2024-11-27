@@ -1,15 +1,17 @@
 "use client";
 
-import { FC, useCallback, useEffect, useMemo, useRef } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 import { ConditionalRender, Text } from "@/components/index";
 
 import { FaTrashCan } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
 import useCartStore from "@/app/store/cart.store";
+import useHandleEvent from "@/app/main/useHandleEvent";
 
 const Cart: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
+  const { reduceQuantity } = useHandleEvent();
   const {
     total,
     cart,
@@ -18,12 +20,6 @@ const Cart: FC = () => {
     removeProduct,
     updateStateCart,
   } = useCartStore();
-
-  const reduceQuantity = useCallback(() => {
-    return cart.reduce((total, item) => {
-      return total + item.quantity;
-    }, 0);
-  }, [cart]);
 
   const itemsToSend = useMemo(() => {
     return cart.map((item) => {
