@@ -22,13 +22,27 @@ const Cart: FC = () => {
     updateStateCart,
   } = useCartStore();
 
-  const itemsToSend = useMemo(() => {
-    return cart.map((item) => {
-      return `${item.quantity} ${item.titulo}`;
-    });
-  }, [cart]);
+  // const itemsToSend = useMemo(() => {
+  //   return cart.map((item) => {
+  //     return `${item.quantity} ${item.titulo}`;
+  //   });
+  // }, [cart]);
 
-  const message = `Olá, gostaria de pedir: ${itemsToSend}`;
+  // const message = `Olá, gostaria de pedir: ${itemsToSend}`;
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Bom dia!";
+    if (hour < 18) return "Boa tarde!";
+    return "Boa noite!";
+  };
+
+  const itemsToSend = useMemo(
+    () => cart.map((item) => `${item.quantity} ${item.titulo}`).join(", "),
+    [cart]
+  );
+
+  const message = `${getGreeting} \n\nGostaria de encomendar um pedido:\n\n${itemsToSend}\n\nPor favor, me informe o valor e o prazo de entrega. Agradeço desde já! 💛✨`;
 
   const sendWhatsapp = () => {
     window.open(
