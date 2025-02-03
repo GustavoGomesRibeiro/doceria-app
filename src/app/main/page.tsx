@@ -5,7 +5,6 @@ import { LuShoppingCart } from "react-icons/lu";
 import { Text, Button, Card, Container, Cart } from "@/components/index";
 import Image from "next/image";
 import useCartStore from "../store/cart.store";
-import { listarProdutos } from "../service/api/produtos";
 import { useEffect, useState } from "react";
 import useHandleEvent from "./useHandleEvent";
 import Toast from "@/components/toast/page";
@@ -31,31 +30,31 @@ const Home = () => {
     {
       id: 1,
       titulo: "Bolo de Abacaxi com Creme Belga",
-      descricao: "Bolo de pote 200g",
+      descricao: "Bolo de pote 210g",
       preco: 10,
     },
     {
       id: 2,
       titulo: "Bolo de Brigadeiro",
-      descricao: "Bolo de pote 200g",
+      descricao: "Bolo de pote 210g",
       preco: 10,
     },
     {
       id: 3,
       titulo: "Bolo de Ninho com Morango",
-      descricao: "Bolo de pote 200g",
+      descricao: "Bolo de pote 210g",
       preco: 10,
     },
     {
       id: 4,
       titulo: "Bolo de Beijinho",
-      descricao: "Bolo de pote 200g",
+      descricao: "Bolo de pote 210g",
       preco: 10,
     },
     {
       id: 5,
       titulo: "Bolo de Prestígio",
-      descricao: "Bolo de pote 200g",
+      descricao: "Bolo de pote 210g",
       preco: 10,
     },
   ];
