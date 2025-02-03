@@ -25,7 +25,7 @@ const ToastNotification: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       onClose();
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [onClose]);

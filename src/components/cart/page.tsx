@@ -69,7 +69,7 @@ const Cart: FC = () => {
           </button>
         </header>
 
-        <div className="w-full h-full overflow-auto">
+        <div className="w-full h-full overflow-auto pb-16 md:pb-0">
           <div className="p-5">
             <ConditionalRender condition={Boolean(cart.length)}>
               {cart.map((item) => (
