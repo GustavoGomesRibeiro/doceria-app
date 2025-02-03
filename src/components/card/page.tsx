@@ -12,6 +12,7 @@ import Image from "next/image";
 import { CardProps } from "./card.types";
 import useCartStore from "@/app/store/cart.store";
 import useToastStore from "@/app/store/toast.store";
+import formatterCurrency from "@/app/utils/formatterCurrency";
 
 const Card: FC<CardProps> = ({ produtos, id }) => {
   const addProduct = useCartStore((state) => state.addProduct);
@@ -41,7 +42,7 @@ const Card: FC<CardProps> = ({ produtos, id }) => {
 
                 <div className="flex justify-between items-center">
                   <Text className="text-[#DB2777] font-bold">
-                    R$ {produto.preco}
+                    {formatterCurrency.format(produto.preco)}
                   </Text>
                   <Button
                     className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"

@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 import Image from "next/image";
 import useCartStore from "@/app/store/cart.store";
 import useHandleEvent from "@/app/main/useHandleEvent";
+import formatterCurrency from "@/app/utils/formatterCurrency";
 
 const Cart: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -82,7 +83,9 @@ const Cart: FC = () => {
                     <div className="flex justify-between p-2">
                       <div>
                         <Text className="font-bold">{item.titulo}</Text>
-                        <Text className="font-bold">R$ {item.preco}</Text>
+                        <Text className="font-bold">
+                          {formatterCurrency.format(item.preco)}
+                        </Text>
                       </div>
                       <div className="mr-2">
                         <button onClick={() => removeProduct(item.id)}>

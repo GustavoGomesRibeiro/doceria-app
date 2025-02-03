@@ -27,12 +27,45 @@ const Home = () => {
   const { reduceQuantity } = useHandleEvent();
   const { updateStateCart, openCart } = useCartStore();
 
+  const item = [
+    {
+      id: 1,
+      titulo: "Bolo de Abacaxi com Creme Belga",
+      descricao: "Bolo de pote 200g",
+      preco: 10,
+    },
+    {
+      id: 2,
+      titulo: "Bolo de Brigadeiro",
+      descricao: "Bolo de pote 200g",
+      preco: 10,
+    },
+    {
+      id: 3,
+      titulo: "Bolo de Ninho com Morango",
+      descricao: "Bolo de pote 200g",
+      preco: 10,
+    },
+    {
+      id: 4,
+      titulo: "Bolo de Beijinho",
+      descricao: "Bolo de pote 200g",
+      preco: 10,
+    },
+    {
+      id: 5,
+      titulo: "Bolo de Prestígio",
+      descricao: "Bolo de pote 200g",
+      preco: 10,
+    },
+  ];
+
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const response: any = await listarProdutos();
-        setProdutos(response.data);
+        // const response: any = await listarProdutos();
+        setProdutos(item);
       } catch (error) {
         console.error(error);
       }
