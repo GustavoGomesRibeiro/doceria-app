@@ -32,30 +32,35 @@ const Home = () => {
       titulo: "Bolo de Abacaxi com Creme Belga",
       descricao: "Bolo de pote 210g",
       preco: 10,
+      img: "/bolo-abacaxi.jpg",
     },
     {
       id: 2,
       titulo: "Bolo de Brigadeiro",
       descricao: "Bolo de pote 210g",
       preco: 10,
+      img: "/bolo-brigadeiro.jpg",
     },
     {
       id: 3,
       titulo: "Bolo de Ninho com Morango",
       descricao: "Bolo de pote 210g",
       preco: 10,
+      img: "/bolo-ninho.jpg",
     },
     {
       id: 4,
       titulo: "Bolo de Beijinho",
       descricao: "Bolo de pote 210g",
       preco: 10,
+      img: "/bolo-beijinho.jpg",
     },
     {
       id: 5,
       titulo: "Bolo de Prestígio",
       descricao: "Bolo de pote 210g",
       preco: 10,
+      img: "/bolo-coco.jpg",
     },
   ];
 

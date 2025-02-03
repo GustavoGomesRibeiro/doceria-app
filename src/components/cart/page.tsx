@@ -77,7 +77,7 @@ const Cart: FC = () => {
                   <div className="h-28 rounded-xl mb-5 flex">
                     <div className="h-24 m-4 flex items-center justify-center">
                       <Image
-                        src="/400.png"
+                        src={String(item.img)}
                         placeholder="empty"
                         width={100}
                         height={100}

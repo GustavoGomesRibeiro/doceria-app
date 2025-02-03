@@ -29,7 +29,7 @@ const Card: FC<CardProps> = ({ produtos, id }) => {
             >
               <div className="bg-gray-500 rounded-tl-lg rounded-tr-lg">
                 <Image
-                  src="/400.png"
+                  src={String(produto.img)}
                   placeholder="empty"
                   width={500}
                   height={500}

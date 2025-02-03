@@ -3,11 +3,22 @@ import { create } from "zustand";
 type CartState = {
   removeProduct(id: number): unknown;
   updateTotal(): unknown;
-  addProduct: (product: { id: number; titulo: string; preco: number }) => void;
+  addProduct: (product: {
+    id: number;
+    titulo: string;
+    preco: number;
+    img?: string;
+  }) => void;
   updateStateCart: () => void;
   decreaseProductQuantity: (id: number) => void;
   incrementProductQuantity: (id: number) => void;
-  cart: { id: number; titulo: string; preco: number; quantity: number }[];
+  cart: {
+    id: number;
+    titulo: string;
+    preco: number;
+    quantity: number;
+    img?: string;
+  }[];
   total: string;
   openCart: boolean;
 };
