@@ -38,7 +38,7 @@ const Cart: FC = () => {
 
   const sendWhatsapp = () => {
     window.open(
-      `https://api.whatsapp.com/send?phone=55${11968519997}&text=${message}`
+      `https://api.whatsapp.com/send?phone=55${11984652404}&text=${message}`
     );
   };
 
