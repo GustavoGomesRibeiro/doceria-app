@@ -36,7 +36,7 @@ const Card: FC<CardProps> = ({ produtos, id }) => {
                   alt="Picture of the author"
                 />
               </div>
-              <div className="flex bg-white p-5 rounded-lg  flex-col justify-between">
+              <div className="flex bg-white p-5 rounded-lg  flex-col justify-between h-56">
                 <Text className="font-bold my-2">{produto.titulo}</Text>
                 <Text className="text-base mt-5 mb-5">{produto.descricao}</Text>
 
