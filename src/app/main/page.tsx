@@ -30,35 +30,39 @@ const Home = () => {
     {
       id: 1,
       titulo: "Bolo de Abacaxi com Creme Belga",
-      descricao: "Bolo de pote 210g",
+      descricao:
+        "Massa fofinha com pedaços de abacaxi e um creme belga suave e delicioso.",
       preco: 10,
       img: "/bolo-abacaxi.jpg",
     },
     {
       id: 2,
       titulo: "Bolo de Brigadeiro",
-      descricao: "Bolo de pote 210g",
+      descricao: "Bolo de chocolate macio com recheio cremoso de brigadeiro.",
       preco: 10,
       img: "/bolo-brigadeiro.jpg",
     },
     {
       id: 3,
       titulo: "Bolo de Ninho com Morango",
-      descricao: "Bolo de pote 210g",
+      descricao:
+        "Creme de leite Ninho combinado com morangos frescos em uma textura leve e equilibrada.",
       preco: 10,
       img: "/bolo-ninho.jpg",
     },
     {
       id: 4,
       titulo: "Bolo de Beijinho",
-      descricao: "Bolo de pote 210g",
+      descricao:
+        "Massa macia com recheio cremoso de coco e um toque de leite condensado.",
       preco: 10,
       img: "/bolo-beijinho.jpg",
     },
     {
       id: 5,
       titulo: "Bolo de Prestígio",
-      descricao: "Bolo de pote 210g",
+      descricao:
+        "Bolo de chocolate com recheio de coco, inspirado no clássico Prestígio.",
       preco: 10,
       img: "/bolo-coco.jpg",
     },
