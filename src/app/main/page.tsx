@@ -28,7 +28,8 @@ type Props = {
 
 const Home = () => {
   const [produtos, setProdutos] = useState<Props[]>([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(
     "bolo caseiro"
   );
@@ -54,16 +55,24 @@ const Home = () => {
   };
 
   useEffect(() => {
+    setIsClient(true);
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener("resize", handleResize);
 
+    handleResize();
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Container>
