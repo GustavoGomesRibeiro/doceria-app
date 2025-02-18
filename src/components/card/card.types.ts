@@ -3,7 +3,10 @@ type CardResponse = {
   titulo: string;
   preco: number;
   descricao: string;
+  kg: boolean;
   img?: string;
+  aviso?: string;
+  tipo: string;
 };
 
 export type CardProps = {

@@ -8,12 +8,17 @@ import useCartStore from "../store/cart.store";
 import { useEffect, useState } from "react";
 import useHandleEvent from "./useHandleEvent";
 import Toast from "@/components/toast/page";
+import item from "../settings/bolos";
 
 type Props = {
   id: number;
   documentId?: string;
   titulo: string;
   descricao: string;
+  kg: boolean;
+  img?: string;
+  aviso?: string;
+  tipo: string;
   preco: number;
   createdAt?: string;
   updatedAt?: string;
@@ -23,50 +28,11 @@ type Props = {
 
 const Home = () => {
   const [produtos, setProdutos] = useState<Props[]>([]);
+  const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(
+    "bolo caseiro"
+  );
   const { reduceQuantity } = useHandleEvent();
   const { updateStateCart, openCart } = useCartStore();
-
-  const item = [
-    {
-      id: 1,
-      titulo: "Bolo de Abacaxi com Creme Belga",
-      descricao:
-        "Massa fofinha com pedaços de abacaxi e um creme belga suave e delicioso.",
-      preco: 10,
-      img: "/bolo-abacaxi.jpg",
-    },
-    {
-      id: 2,
-      titulo: "Bolo de Brigadeiro",
-      descricao: "Bolo de chocolate macio com recheio cremoso de brigadeiro.",
-      preco: 10,
-      img: "/bolo-brigadeiro.jpg",
-    },
-    {
-      id: 3,
-      titulo: "Bolo de Ninho com Morango",
-      descricao:
-        "Creme de leite Ninho combinado com morangos frescos em uma textura leve e equilibrada.",
-      preco: 10,
-      img: "/bolo-ninho.jpg",
-    },
-    {
-      id: 4,
-      titulo: "Bolo de Beijinho",
-      descricao:
-        "Massa macia com recheio cremoso de coco e um toque de leite condensado.",
-      preco: 10,
-      img: "/bolo-beijinho.jpg",
-    },
-    {
-      id: 5,
-      titulo: "Bolo de Prestígio",
-      descricao:
-        "Bolo de chocolate com recheio de coco, inspirado no clássico Prestígio.",
-      preco: 10,
-      img: "/bolo-coco.jpg",
-    },
-  ];
 
   useEffect(() => {
     const fetchProdutos = async () => {
@@ -81,6 +47,10 @@ const Home = () => {
 
     fetchProdutos();
   }, []);
+
+  const filtrarProdutos = (tipo: string) => {
+    setTipoSelecionado(tipo);
+  };
 
   return (
     <Container>
@@ -136,11 +106,68 @@ const Home = () => {
       </main>
 
       <main className="bg-[#FFF0E7] h-screen">
+        <div className="bg-[#fff] flex justify-center items-center h-48 shadow-md">
+          <div className="flex flex-col sm:flex-row">
+            <button
+              onClick={() => filtrarProdutos("bolo caseiro")}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl ${
+                tipoSelecionado === "bolo caseiro"
+                  ? "transform -translate-y-1.5"
+                  : "hover:transform hover:-translate-y-1.5"
+              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+            >
+              Bolos de Pote
+            </button>
+            <button
+              onClick={() => filtrarProdutos("bolo branco")}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl  ${
+                tipoSelecionado === "bolo branco"
+                  ? "transform -translate-y-1.5"
+                  : "hover:transform hover:-translate-y-1.5"
+              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+            >
+              Bolos Brancos
+            </button>
+            <button
+              onClick={() => filtrarProdutos("bolo chocolate")}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl  ${
+                tipoSelecionado === "bolo chocolate"
+                  ? "transform -translate-y-1.5"
+                  : "hover:transform hover:-translate-y-1.5"
+              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+            >
+              Bolos de Chocolate
+            </button>
+          </div>
+        </div>
         <div className="flex justify-center items-center p-10">
           <Text className="font-bold text-3xl">Nosso cardapio</Text>
         </div>
 
-        <Card produtos={produtos} id="cardapio" />
+        <div className="p-5 bg-[#fff] md:m-5 m-6 rounded-xl border-solid border-2 border-black">
+          {tipoSelecionado !== "bolo caseiro" ? (
+            <>
+              <Text className="font-bold text-[#000] my-1">
+                Importante, faça sua encomenda com 2 dias de antecedência.
+              </Text>
+            </>
+          ) : (
+            <Text className="font-bold text-[#000] my-1">
+              Favor verificar disponibilidade dos sabores.
+            </Text>
+          )}
+        </div>
+
+        <div className="flex justify-center items-center">
+          <Card
+            produtos={
+              tipoSelecionado
+                ? produtos.filter((produto) => produto.tipo === tipoSelecionado)
+                : produtos
+            }
+            id="cardapio"
+          />
+        </div>
       </main>
     </Container>
   );
