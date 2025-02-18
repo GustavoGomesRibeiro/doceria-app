@@ -28,6 +28,7 @@ type Props = {
 
 const Home = () => {
   const [produtos, setProdutos] = useState<Props[]>([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [tipoSelecionado, setTipoSelecionado] = useState<string | null>(
     "bolo caseiro"
   );
@@ -51,6 +52,18 @@ const Home = () => {
   const filtrarProdutos = (tipo: string) => {
     setTipoSelecionado(tipo);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <Container>
@@ -116,7 +129,7 @@ const Home = () => {
                   : "hover:transform hover:-translate-y-1.5"
               } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
-              Bolos de Pote
+              <a href="#cardapio">Bolos de Pote</a>
             </button>
             <button
               onClick={() => filtrarProdutos("bolo branco")}
@@ -126,7 +139,7 @@ const Home = () => {
                   : "hover:transform hover:-translate-y-1.5"
               } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
-              Bolos Brancos
+              <a href="#cardapio">Bolos Brancos</a>
             </button>
             <button
               onClick={() => filtrarProdutos("bolo chocolate")}
@@ -136,7 +149,7 @@ const Home = () => {
                   : "hover:transform hover:-translate-y-1.5"
               } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
-              Bolos de Chocolate
+              <a href="#cardapio">Bolos de Chocolate</a>
             </button>
           </div>
         </div>
@@ -165,6 +178,7 @@ const Home = () => {
                 ? produtos.filter((produto) => produto.tipo === tipoSelecionado)
                 : produtos
             }
+            isMobile={isMobile}
             id="cardapio"
           />
         </div>

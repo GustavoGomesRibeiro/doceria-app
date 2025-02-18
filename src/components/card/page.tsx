@@ -14,21 +14,21 @@ import useCartStore from "@/app/store/cart.store";
 import useToastStore from "@/app/store/toast.store";
 import formatterCurrency from "@/app/utils/formatterCurrency";
 
-const Card: FC<CardProps> = ({ produtos, id }) => {
+const Card: FC<CardProps> = ({ produtos, id, isMobile }) => {
   const addProduct = useCartStore((state) => state.addProduct);
   const { addToast } = useToastStore();
 
   return (
     <>
       <div
-        className="md:grid md:grid-cols-4 md:gap-y-16 md:gap-x-6 p-5"
+        className="grid grid-cols-2 md:grid md:grid-cols-4 md:gap-y-16 md:gap-x-6 p-5"
         id={id}
       >
         <ConditionalRender condition={Boolean(produtos.length)}>
           {produtos.map((produto) => (
             <div
               key={produto.id}
-              className="shadow-md shadow-gray-500 mb-5 border-solid border-2 border-black rounded-[10px] w-80"
+              className="shadow-md shadow-gray-500 mb-5 border-solid border-2 border-black rounded-[10px] md:w-80 m-1"
             >
               <div className="bg-gray-500 rounded-tl-lg rounded-tr-lg">
                 <Image
@@ -37,19 +37,22 @@ const Card: FC<CardProps> = ({ produtos, id }) => {
                   width={500}
                   height={500}
                   alt={produto.titulo}
-                  className="rounded-tl-lg rounded-tr-lg"
+                  className="rounded-tl-lg rounded-tr-lg md:h-[178px] md:bg-cover md:object-cover h-[87px] bg-cover object-cover"
                 />
               </div>
-              <div className="flex bg-white p-5 rounded-lg  flex-col justify-between h-80">
+
+              <div className="flex bg-white p-5 rounded-lg  flex-col justify-between md:h-80 h-64">
                 <Text className="font-bold my-2">{produto.titulo}</Text>
                 {produto.aviso ? (
                   <Text className="text-[#DB2777] font-normal my-1">
                     {produto.aviso}*
                   </Text>
                 ) : null}
-                <Text className="text-base mt-5 mb-5">{produto.descricao}</Text>
+                <Text className="text-base mt-5 mb-5">
+                  {!isMobile ? produto.descricao : ""}
+                </Text>
 
-                <div className="flex justify-between items-center">
+                <div className="md:flex md:flex-row md:justify-between md:items-center flex flex-col items-center justify-center">
                   <Text className="text-[#DB2777] font-bold">
                     {produto.kg
                       ? `${formatterCurrency.format(produto.preco)}/Kg`

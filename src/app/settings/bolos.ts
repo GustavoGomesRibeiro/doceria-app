@@ -56,7 +56,7 @@ const item = [
       "Bolo leve e aerado com um irresistível recheio de mousse de limão, trazendo equilíbrio entre o doce e o cítrico.",
     preco: 10,
     kg: false,
-    img: "/bolo-abacaxi.jpg",
+    img: "/logo-1.png",
     tipo: "bolo caseiro",
   },
   {
@@ -76,7 +76,7 @@ const item = [
       "Uma combinação perfeita de bolo de chocolate com recheio cremoso e pedaços de chocolate, trazendo um sabor intenso e marcante.",
     preco: 80,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/bolo-brigadeiro.jpg",
     tipo: "bolo chocolate",
   },
   {
@@ -85,7 +85,7 @@ const item = [
     descricao: "Massa fofinha combinada com um mousse cremoso de maracujá.",
     preco: 80,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/logo-1.png",
     tipo: "bolo chocolate",
   },
   {
@@ -95,7 +95,7 @@ const item = [
       "Bolo de chocolate com recheio de coco, inspirado no clássico Prestígio.",
     preco: 75,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/bolo-coco.jpg",
     tipo: "bolo chocolate",
   },
   {
@@ -126,7 +126,7 @@ const item = [
       "Massa macia com recheio cremoso de coco e um toque de leite condensado.",
     preco: 70,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/bolo-beijinho.jpg",
     tipo: "bolo branco",
   },
   {
@@ -136,7 +136,7 @@ const item = [
       "Uma combinação perfeita de leveza e acidez! Massa branca combinada com mousse aerado de limão.",
     preco: 70,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/logo-1.png",
     tipo: "bolo branco",
   },
   {
@@ -145,7 +145,7 @@ const item = [
     descricao: "Massa fofinha combinada com um mousse cremoso de maracujá.",
     preco: 70,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/logo-1.png",
     tipo: "bolo branco",
   },
   {
@@ -155,7 +155,7 @@ const item = [
       "Bolo extremamente úmido e saboroso, preparado com uma mistura especial de leite condensado, leite evaporado, creme de leite e leite de coco.",
     preco: 75,
     kg: true,
-    img: "/bolo-abacaxi.jpg",
+    img: "/logo-1.png",
     tipo: "bolo branco",
   },
 ];
