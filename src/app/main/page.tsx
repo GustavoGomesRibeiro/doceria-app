@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import useHandleEvent from "./useHandleEvent";
 import Toast from "@/components/toast/page";
 import item from "../settings/bolos";
+import Alert from "@/components/alert/page";
 
 type Props = {
   id: number;
@@ -27,6 +28,9 @@ type Props = {
 };
 
 const Home = () => {
+  const [toastMessage, setToastMessage] = useState<string>("");
+  const [showToast, setShowToast] = useState(false);
+
   const [produtos, setProdutos] = useState<Props[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
@@ -50,10 +54,6 @@ const Home = () => {
     fetchProdutos();
   }, []);
 
-  const filtrarProdutos = (tipo: string) => {
-    setTipoSelecionado(tipo);
-  };
-
   useEffect(() => {
     setIsClient(true);
 
@@ -74,9 +74,29 @@ const Home = () => {
     return null;
   }
 
+  const handleToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+
+  const filtrarProdutos = (tipo: string) => {
+    setTipoSelecionado(tipo);
+
+    if (tipo === "bolo branco" || tipo === "bolo chocolate") {
+      handleToast("Faça sua encomenda com 2\ndias de antecedência.");
+    } else if (tipo === "bolo caseiro") {
+      handleToast("Favor verificar disponibilidade dos sabores.");
+    }
+  };
+
   return (
     <Container>
       <Toast />
+      <Alert
+        message={toastMessage}
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+      />
       <header className="flex justify-between bg-white p-10 shadow-md mb-5">
         <div>
           <Image
@@ -132,31 +152,19 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row">
             <button
               onClick={() => filtrarProdutos("bolo caseiro")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl ${
-                tipoSelecionado === "bolo caseiro"
-                  ? "transform -translate-y-1.5"
-                  : "hover:transform hover:-translate-y-1.5"
-              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
               <a href="#cardapio">Bolos de Pote</a>
             </button>
             <button
               onClick={() => filtrarProdutos("bolo branco")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl  ${
-                tipoSelecionado === "bolo branco"
-                  ? "transform -translate-y-1.5"
-                  : "hover:transform hover:-translate-y-1.5"
-              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
               <a href="#cardapio">Bolos Brancos</a>
             </button>
             <button
               onClick={() => filtrarProdutos("bolo chocolate")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl  ${
-                tipoSelecionado === "bolo chocolate"
-                  ? "transform -translate-y-1.5"
-                  : "hover:transform hover:-translate-y-1.5"
-              } transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
+              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
             >
               <a href="#cardapio">Bolos de Chocolate</a>
             </button>
@@ -164,20 +172,6 @@ const Home = () => {
         </div>
         <div className="flex justify-center items-center p-10">
           <Text className="font-bold text-3xl">Nosso cardapio</Text>
-        </div>
-
-        <div className="p-5 bg-[#fff] md:m-5 m-6 rounded-xl border-solid border-2 border-black">
-          {tipoSelecionado !== "bolo caseiro" ? (
-            <>
-              <Text className="font-bold text-[#000] my-1">
-                Importante, faça sua encomenda com 2 dias de antecedência.
-              </Text>
-            </>
-          ) : (
-            <Text className="font-bold text-[#000] my-1">
-              Favor verificar disponibilidade dos sabores.
-            </Text>
-          )}
         </div>
 
         <div className="flex justify-center items-center">
