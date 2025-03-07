@@ -158,6 +158,16 @@ const item = [
     img: "/logo-1.png",
     tipo: "bolo branco",
   },
+  {
+    id: 1,
+    titulo: "Mini Pudim",
+    descricao:
+      "Delicioso mini pudim, cremoso e delicadamente caramelizado. Feito com ingredientes selecionados, cada mordida derrete na boca, proporcionando uma experiência irresistível. Perfeito para adoçar seu dia!",
+    preco: 10,
+    kg: false,
+    img: "/mini-pudim2.jpg",
+    tipo: "doces",
+  },
 ];
 
 export default item;

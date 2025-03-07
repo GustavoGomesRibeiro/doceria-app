@@ -10,6 +10,7 @@ import useHandleEvent from "./useHandleEvent";
 import Toast from "@/components/toast/page";
 import item from "../settings/bolos";
 import Alert from "@/components/alert/page";
+import { Opcoes } from "@/components/Opcoes/page";
 
 type Props = {
   id: number;
@@ -89,6 +90,29 @@ const Home = () => {
     }
   };
 
+  const dataOpcoes = [
+    {
+      id: 1,
+      value: "bolo caseiro",
+      title: "Bolos de Pote",
+    },
+    {
+      id: 2,
+      value: "bolo branco",
+      title: "Bolos Brancos",
+    },
+    {
+      id: 3,
+      value: "bolo chocolate",
+      title: "Bolos de Chocolate",
+    },
+    {
+      id: 4,
+      value: "doces",
+      title: "Doces",
+    },
+  ];
+
   return (
     <Container>
       <Toast />
@@ -148,28 +172,20 @@ const Home = () => {
       </main>
 
       <main className="bg-[#FFF0E7] h-screen">
-        <div className="bg-[#fff] flex justify-center items-center h-48 shadow-md">
+        <div className="bg-[#fff] flex justify-center items-center sm:h-48  shadow-md">
           <div className="flex flex-col sm:flex-row">
-            <button
-              onClick={() => filtrarProdutos("bolo caseiro")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
-            >
-              <a href="#cardapio">Bolos de Pote</a>
-            </button>
-            <button
-              onClick={() => filtrarProdutos("bolo branco")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
-            >
-              <a href="#cardapio">Bolos Brancos</a>
-            </button>
-            <button
-              onClick={() => filtrarProdutos("bolo chocolate")}
-              className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
-            >
-              <a href="#cardapio">Bolos de Chocolate</a>
-            </button>
+            {dataOpcoes.map((i) => {
+              return (
+                <Opcoes
+                  key={i.id}
+                  title={i.title}
+                  action={() => filtrarProdutos(i.value)}
+                />
+              );
+            })}
           </div>
         </div>
+
         <div className="flex justify-center items-center p-10">
           <Text className="font-bold text-3xl">Nosso cardapio</Text>
         </div>
