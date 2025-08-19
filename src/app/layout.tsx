@@ -5,6 +5,9 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Reis Doces Caseiros",
+  other: {
+    "tiktok-developers-site-verification": "nUsyhJuGzpEQx8csfuswF7Rs2s5OxsgC",
+  },
   description: "Doces Caseiros",
   icons: {
     icon: ["/favicon.ico?v=4"],
