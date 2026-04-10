@@ -1,19 +1,17 @@
 import useToastStore from "@/app/store/toast.store";
 import React, { useState } from "react";
-import { MdShoppingCartCheckout } from "react-icons/md";
+import { LuShoppingBag, LuX } from "react-icons/lu";
 
 const Toast: React.FC = () => {
   const { toasts, removeToast } = useToastStore();
   return (
-    <div>
-      <div className="fixed top-4 right-4 z-50 space-y-2">
-        {toasts.map((toastId) => (
-          <ToastNotification
-            key={toastId}
-            onClose={() => removeToast(toastId)}
-          />
-        ))}
-      </div>
+    <div className="fixed top-20 right-4 z-50 flex flex-col gap-2 pointer-events-none">
+      {toasts.map((toastId) => (
+        <ToastNotification
+          key={toastId}
+          onClose={() => removeToast(toastId)}
+        />
+      ))}
     </div>
   );
 };
@@ -25,38 +23,33 @@ const ToastNotification: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       onClose();
-    }, 1000);
-
+    }, 1800);
     return () => clearTimeout(timer);
   }, [onClose]);
 
   return (
     <div
-      className={`
-        flex items-center w-full max-w-xs p-4 space-x-4 
-        text-gray-500 bg-white divide-x divide-gray-200 
-        rounded-lg shadow dark:text-gray-400 
-        dark:divide-gray-700 dark:bg-gray-800
-        transition-all duration-500 ease-in-out
-        ${
-          isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
-        }
-      `}
+      className={`pointer-events-auto flex items-center gap-3 bg-white border border-rose-100 rounded-2xl px-4 py-3 shadow-lg transition-all duration-400 ease-out ${
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-2"
+      }`}
       role="alert"
     >
-      <MdShoppingCartCheckout size={24} color="#fff" />
-      <div className="ps-4 text-sm font-normal text-white">
-        Item adicionado no carrinho!
+      <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center flex-shrink-0">
+        <LuShoppingBag size={15} className="text-[#E8547A]" />
       </div>
-
+      <span className="text-sm font-semibold text-stone-700">
+        Adicionado à sacola!
+      </span>
       <button
         onClick={() => {
           setIsVisible(false);
           onClose();
         }}
-        className="ml-auto text-gray-400 hover:text-gray-900"
+        className="ml-1 text-stone-300 hover:text-stone-500 transition-colors"
       >
-        ✕
+        <LuX size={14} />
       </button>
     </div>
   );

@@ -3,14 +3,40 @@ import { FC } from "react";
 type OpcoesProps = {
   action: (value: string) => void;
   title: string;
+  value: string;
+  active?: boolean;
 };
-export const Opcoes: FC<OpcoesProps> = ({ action, title }) => {
+
+export const Opcoes: FC<OpcoesProps> = ({ action, title, value, active }) => {
   return (
-    <button
-      onClick={(value) => action(String(value))}
-      className={`shadow-md shadow-black h-11 p-3 text-white m-2 bg-[#500E00] rounded-xl hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]`}
-    >
-      <a href="#cardapio">{title}</a>
-    </button>
+    <a href="#cardapio">
+      <button
+        onClick={() => action(value)}
+        className="whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 btn-press"
+        style={
+          active
+            ? { background: "var(--rose)", color: "#fff", border: "1.5px solid var(--rose)" }
+            : {
+                background: "transparent",
+                color: "var(--ink-muted)",
+                border: "1.5px solid var(--border)",
+              }
+        }
+        onMouseOver={(e) => {
+          if (!active) {
+            e.currentTarget.style.borderColor = "var(--rose)";
+            e.currentTarget.style.color = "var(--rose)";
+          }
+        }}
+        onMouseOut={(e) => {
+          if (!active) {
+            e.currentTarget.style.borderColor = "var(--border)";
+            e.currentTarget.style.color = "var(--ink-muted)";
+          }
+        }}
+      >
+        {title}
+      </button>
+    </a>
   );
 };

@@ -1,13 +1,8 @@
 "use client";
 
 import { FC } from "react";
-import {
-  Text,
-  Button,
-  ConditionalRender,
-  Placeholder,
-} from "@/components/index";
-
+import { ConditionalRender, Placeholder } from "@/components/index";
+import { LuPlus } from "react-icons/lu";
 import Image from "next/image";
 import { CardProps } from "./card.types";
 import useCartStore from "@/app/store/cart.store";
@@ -20,74 +15,92 @@ const Card: FC<CardProps> = ({ produtos, id, isMobile }) => {
 
   return (
     <>
-      <div
-        className="grid grid-cols-2 md:grid md:grid-cols-4 md:gap-y-16 md:gap-x-6 p-5"
-        id={id}
-      >
-        <ConditionalRender condition={Boolean(produtos.length)}>
-          {produtos.map((produto) => (
+      <ConditionalRender condition={Boolean(produtos.length)}>
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 py-4"
+          id={id}
+        >
+          {produtos.map((produto, i) => (
             <div
               key={produto.id}
-              className="shadow-md shadow-gray-500 mb-5 border-solid border-2 border-black rounded-[10px] md:w-80 m-1"
+              className="card-lift group rounded-2xl overflow-hidden fade-up"
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                animationDelay: `${i * 0.06}s`,
+              }}
             >
-              <div className="bg-gray-500 rounded-tl-lg rounded-tr-lg">
+              {/* Image */}
+              <div className="relative overflow-hidden aspect-square" style={{ background: "#F0EAE2" }}>
                 <Image
                   src={String(produto.img)}
                   placeholder="empty"
-                  width={500}
-                  height={500}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
                   alt={produto.titulo}
-                  className="rounded-tl-lg rounded-tr-lg md:h-[178px] md:bg-cover md:object-cover h-[87px] bg-cover object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-108"
                 />
+                {produto.aviso && (
+                  <div
+                    className="absolute top-2.5 left-2.5 pill text-[10px]"
+                    style={{ background: "var(--rose)", color: "#fff" }}
+                  >
+                    Aviso
+                  </div>
+                )}
               </div>
 
-              <div className="flex bg-white p-5 rounded-lg  flex-col justify-between md:h-80 h-64">
-                <Text className="font-bold my-2">{produto.titulo}</Text>
-                {produto.aviso ? (
-                  <Text className="text-[#DB2777] font-normal my-1">
-                    {produto.aviso}*
-                  </Text>
-                ) : null}
-                <Text className="text-base mt-5 mb-5">
-                  {!isMobile ? produto.descricao : ""}
-                </Text>
+              {/* Body */}
+              <div className="p-4 flex flex-col gap-2">
+                <h3
+                  className="text-sm font-medium leading-snug line-clamp-2"
+                  style={{ color: "var(--ink)", fontFamily: "var(--font-fraunces), serif" }}
+                >
+                  {produto.titulo}
+                </h3>
 
-                <div className="md:flex md:flex-row md:justify-between md:items-center flex flex-col items-center justify-center">
-                  <Text className="text-[#DB2777] font-bold">
+                {produto.aviso && (
+                  <p className="text-xs font-medium leading-snug" style={{ color: "var(--rose)" }}>
+                    {produto.aviso}*
+                  </p>
+                )}
+
+                {!isMobile && produto.descricao && (
+                  <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "var(--ink-muted)" }}>
+                    {produto.descricao}
+                  </p>
+                )}
+
+                <div className="flex items-center justify-between mt-auto pt-2">
+                  <span
+                    className="text-base font-semibold"
+                    style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--rose)" }}
+                  >
                     {produto.kg
                       ? `${formatterCurrency.format(produto.preco)}/Kg`
                       : formatterCurrency.format(produto.preco)}
-                  </Text>
-                  <Button
-                    className="bg-[#DB2777] rounded-full p-2 shadow-md shadow-gray-500 hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
-                    addProduct={() => {
-                      addProduct(produto);
-                      addToast();
-                    }}
+                  </span>
+
+                  <button
+                    onClick={() => { addProduct(produto); addToast(); }}
+                    className="btn-press flex items-center justify-center w-9 h-9 rounded-full"
+                    style={{ background: "var(--rose)", color: "#fff" }}
+                    aria-label={`Adicionar ${produto.titulo}`}
                   >
-                    <Text className="text-white">Adicionar</Text>
-                  </Button>
+                    <LuPlus size={16} />
+                  </button>
                 </div>
               </div>
             </div>
           ))}
-        </ConditionalRender>
-      </div>
+        </div>
+      </ConditionalRender>
 
       <ConditionalRender condition={produtos.length <= 0}>
-        <div className="md:grid md:grid-cols-4 md:gap-4 p-5">
-          <div className="p-5">
-            <Placeholder />
-          </div>
-          <div className="p-5">
-            <Placeholder />
-          </div>
-          <div className="p-5">
-            <Placeholder />
-          </div>
-          <div className="p-5">
-            <Placeholder />
-          </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="p-2"><Placeholder /></div>
+          ))}
         </div>
       </ConditionalRender>
     </>

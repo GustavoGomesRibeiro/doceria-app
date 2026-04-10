@@ -1,10 +1,9 @@
 "use client";
 
 import { FC, useEffect, useMemo, useRef } from "react";
-import { ConditionalRender, Text } from "@/components/index";
-
-import { FaTrashCan } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
+import { ConditionalRender } from "@/components/index";
+import { LuTrash2, LuX, LuMinus, LuPlus, LuShoppingBag } from "react-icons/lu";
+import { RiWhatsappFill } from "react-icons/ri";
 import Image from "next/image";
 import useCartStore from "@/app/store/cart.store";
 import useHandleEvent from "@/app/main/useHandleEvent";
@@ -14,18 +13,15 @@ const Cart: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { reduceQuantity } = useHandleEvent();
   const {
-    total,
-    cart,
-    decreaseProductQuantity,
-    incrementProductQuantity,
-    removeProduct,
-    updateStateCart,
+    total, cart,
+    decreaseProductQuantity, incrementProductQuantity,
+    removeProduct, updateStateCart,
   } = useCartStore();
 
   const getGreeting = () => {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Bom dia!";
-    if (hour < 18) return "Boa tarde!";
+    const h = new Date().getHours();
+    if (h < 12) return "Bom dia!";
+    if (h < 18) return "Boa tarde!";
     return "Boa noite!";
   };
 
@@ -37,126 +33,174 @@ const Cart: FC = () => {
   const message = `${getGreeting()} Gostaria de encomendar um pedido: ${itemsToSend}. Por favor, me informe o valor e o prazo de entrega. Agradeço desde já!`;
 
   const sendWhatsapp = () => {
-    window.open(
-      `https://api.whatsapp.com/send?phone=55${11984652404}&text=${message}`
-    );
+    window.open(`https://api.whatsapp.com/send?phone=5511984652404&text=${encodeURIComponent(message)}`);
   };
 
   useEffect(() => {
-    const handleClickOutSideComponent = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        updateStateCart();
-      }
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) updateStateCart();
     };
-
-    document.addEventListener("mousedown", handleClickOutSideComponent);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutSideComponent);
-    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, [updateStateCart]);
 
   return (
     <div className="fixed inset-0 z-[100]">
-      <div className="absolute inset-0 bg-black opacity-40" />
+      {/* Backdrop */}
+      <div className="absolute inset-0" style={{ background: "rgba(30,20,10,0.5)", backdropFilter: "blur(4px)" }} />
 
-      <div className="relative z-10 flex flex-col justify-between w-96 h-screen bg-[#F5F5F5] ml-auto border-solid border-2 border-black">
-        <header className=" h-16 bg-white shadow-md flex justify-between items-center border-solid border-b-2 border-black p-5">
-          <div></div>
-          <p className="font-bold">Sacola</p>
-          <button onClick={updateStateCart} className="font-bold">
-            <IoClose size={24} color="#000" />
+      {/* Panel */}
+      <div
+        ref={ref}
+        className="relative z-10 flex flex-col w-full max-w-sm h-screen ml-auto"
+        style={{ background: "var(--cream)" }}
+      >
+        {/* Header */}
+        <header
+          className="flex justify-between items-center px-6 py-5"
+          style={{ borderBottom: "1px solid var(--border)" }}
+        >
+          <div className="flex items-center gap-2">
+            <LuShoppingBag size={18} style={{ color: "var(--rose)" }} />
+            <span
+              className="font-medium text-base"
+              style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--ink)" }}
+            >
+              Sacola
+            </span>
+            {reduceQuantity() > 0 && (
+              <span
+                className="pill text-[10px]"
+                style={{ background: "var(--rose-soft)", color: "var(--rose)" }}
+              >
+                {reduceQuantity()} {reduceQuantity() === 1 ? "item" : "itens"}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={updateStateCart}
+            className="w-8 h-8 flex items-center justify-center rounded-full transition-colors"
+            style={{ background: "rgba(30,20,10,0.08)" }}
+          >
+            <LuX size={15} style={{ color: "var(--ink-muted)" }} />
           </button>
         </header>
 
-        <div className="w-full h-full overflow-auto pb-16 md:pb-0">
-          <div className="p-5">
-            <ConditionalRender condition={Boolean(cart.length)}>
+        {/* Items */}
+        <div className="flex-1 overflow-y-auto">
+          <ConditionalRender condition={Boolean(cart.length)}>
+            <div className="px-4 py-4 space-y-3">
               {cart.map((item) => (
-                <div key={item.id}>
-                  <div className="h-28 rounded-xl mb-5 flex">
-                    <div className="h-24 m-4 flex items-center justify-center">
-                      <Image
-                        src={String(item.img)}
-                        placeholder="empty"
-                        width={100}
-                        height={100}
-                        alt="Picture of the author"
-                        className="h-24 self-center p-1"
-                      />
-                    </div>
-
-                    <main className="w-56">
-                      <div className="flex justify-between p-2">
-                        <div>
-                          <Text className="font-bold">{item.titulo}</Text>
-                          <Text className="font-bold">
-                            {formatterCurrency.format(item.preco)}
-                          </Text>
-                        </div>
-                        <div className="mr-2">
-                          <button onClick={() => removeProduct(item.id)}>
-                            <FaTrashCan size={18} color="#000" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="p-1 mr-2 rounded-lg border-solid border-2 border-black bg-white flex justify-between">
-                        <button
-                          className="ml-1 mr-1"
-                          onClick={() => decreaseProductQuantity(item.id)}
-                        >
-                          -
-                        </button>
-                        {item.quantity}
-                        <button
-                          className="ml-1 mr-1"
-                          onClick={() => incrementProductQuantity(item.id)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </main>
+                <div
+                  key={item.id}
+                  className="flex gap-3 rounded-2xl p-3"
+                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+                >
+                  <div
+                    className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0"
+                    style={{ background: "#F0EAE2" }}
+                  >
+                    <Image
+                      src={String(item.img)}
+                      placeholder="empty"
+                      fill sizes="64px"
+                      alt={item.titulo}
+                      className="object-cover"
+                    />
                   </div>
 
-                  <div className="border-solid border-[1px] border-gray-400" />
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className="text-sm font-medium leading-snug truncate"
+                      style={{ color: "var(--ink)", fontFamily: "var(--font-fraunces), serif" }}
+                    >
+                      {item.titulo}
+                    </p>
+                    <p className="text-sm font-semibold mt-0.5" style={{ color: "var(--rose)" }}>
+                      {formatterCurrency.format(item.preco)}
+                    </p>
+
+                    <div className="flex items-center justify-between mt-2">
+                      <div
+                        className="flex items-center gap-2 rounded-full px-2 py-1"
+                        style={{ background: "var(--bg)", border: "1px solid var(--border)" }}
+                      >
+                        <button
+                          onClick={() => decreaseProductQuantity(item.id)}
+                          className="w-5 h-5 flex items-center justify-center rounded-full transition-colors"
+                          style={{ color: "var(--ink-muted)" }}
+                        >
+                          <LuMinus size={11} />
+                        </button>
+                        <span className="text-sm font-semibold w-4 text-center" style={{ color: "var(--ink)" }}>
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => incrementProductQuantity(item.id)}
+                          className="w-5 h-5 flex items-center justify-center rounded-full transition-colors"
+                          style={{ color: "var(--ink-muted)" }}
+                        >
+                          <LuPlus size={11} />
+                        </button>
+                      </div>
+                      <button
+                        onClick={() => removeProduct(item.id)}
+                        className="w-7 h-7 flex items-center justify-center rounded-full transition-colors"
+                        style={{ background: "var(--rose-soft)", color: "var(--rose)" }}
+                      >
+                        <LuTrash2 size={12} />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
-            </ConditionalRender>
+            </div>
+          </ConditionalRender>
 
-            <ConditionalRender condition={cart.length === 0}>
-              <div className="flex flex-col justify-center items-center">
-                <Image
-                  src="/carrinho-vazio.png"
-                  placeholder="empty"
-                  width={250}
-                  height={250}
-                  alt="Picture of the empty cart"
-                  className="self-center p-1"
-                />
-                <Text className="text-center font-bold text-gray-500">
-                  Você não possui produto na sua sacola.
-                </Text>
-              </div>
-            </ConditionalRender>
-          </div>
-
-          {cart.length ? (
-            <footer className="flex flex-col justify-center items-center bg-white h-36 border-solid border-t-2 border-black p-5">
-              <div>
-                <Text className="font-bold">
-                  Items no carrinho: {reduceQuantity()}
-                </Text>
-              </div>
-              <div>Total a pagar R$ {total}</div>
-              <button
-                onClick={sendWhatsapp}
-                className="bg-black rounded-full p-3 mt-3 w-36 shadow-md shadow-black hover:transform hover:-translate-y-1.5 transition-transform duration-250 ease-[cubic-bezier(0.3,0.7,0.4,1.5)]"
-              >
-                <Text className="text-white">Pedir</Text>
-              </button>
-            </footer>
-          ) : null}
+          <ConditionalRender condition={cart.length === 0}>
+            <div className="flex flex-col items-center justify-center h-full py-20 px-8 text-center">
+              <Image
+                src="/carrinho-vazio.png"
+                placeholder="empty"
+                width={160} height={160}
+                alt="Sacola vazia"
+                className="opacity-50"
+              />
+              <p className="font-medium mt-5 text-sm" style={{ color: "var(--ink-muted)" }}>
+                Sua sacola está vazia
+              </p>
+              <p className="text-xs mt-1" style={{ color: "rgba(122,99,82,0.5)" }}>
+                Adicione produtos para fazer seu pedido
+              </p>
+            </div>
+          </ConditionalRender>
         </div>
+
+        {/* Footer */}
+        {cart.length > 0 && (
+          <div
+            className="px-6 py-5 space-y-4"
+            style={{ borderTop: "1px solid var(--border)", background: "var(--surface)" }}
+          >
+            <div className="flex justify-between items-center">
+              <span className="text-sm" style={{ color: "var(--ink-muted)" }}>Total estimado</span>
+              <span
+                className="text-xl font-semibold"
+                style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--ink)" }}
+              >
+                R$ {total}
+              </span>
+            </div>
+            <button
+              onClick={sendWhatsapp}
+              className="btn-press w-full flex items-center justify-center gap-2 rounded-2xl py-4 text-sm font-medium"
+              style={{ background: "#25D366", color: "#fff", boxShadow: "0 8px 28px rgba(37,211,102,0.28)" }}
+            >
+              <RiWhatsappFill size={20} />
+              Pedir pelo WhatsApp
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

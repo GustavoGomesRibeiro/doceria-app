@@ -1,18 +1,16 @@
 import React from "react";
+import { LuInfo } from "react-icons/lu";
 
-interface ToastProps {
+interface AlertProps {
   message: string;
   isVisible: boolean;
   onClose: () => void;
 }
 
-const Alert = ({ message, isVisible, onClose }: ToastProps) => {
+const Alert = ({ message, isVisible, onClose }: AlertProps) => {
   React.useEffect(() => {
     if (isVisible) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 3000);
-
+      const timer = setTimeout(() => onClose(), 3500);
       return () => clearTimeout(timer);
     }
   }, [isVisible, onClose]);
@@ -20,36 +18,23 @@ const Alert = ({ message, isVisible, onClose }: ToastProps) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2  flex w-3/4 h-24 overflow-hidden bg-white shadow-lg max-w-96 rounded-xl">
-      <svg width="16" height="96" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M 8 0 
-               Q 4 4.8, 8 9.6 
-               T 8 19.2 
-               Q 4 24, 8 28.8 
-               T 8 38.4 
-               Q 4 43.2, 8 48 
-               T 8 57.6 
-               Q 4 62.4, 8 67.2 
-               T 8 76.8 
-               Q 4 81.6, 8 86.4 
-               T 8 96 
-               L 0 96 
-               L 0 0 
-               Z"
-          fill="#500E00"
-          stroke="#500E00"
-          stroke-width="2"
-          stroke-linecap="round"
-        ></path>
-      </svg>
-      <div className="mx-2.5 overflow-hidden w-full">
-        <p className="mt-1.5 text-xl font-bold text-[#500E00] leading-8 mr-3 overflow-hidden text-ellipsis whitespace-nowrap">
-          Importante!
-        </p>
-        <p className="overflow-hidden leading-5 break-all text-zinc-400 max-h-10 whitespace-pre-line">
-          {message}
-        </p>
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-sm">
+      <div className="flex items-start gap-3 bg-white rounded-2xl px-4 py-3.5 shadow-xl border border-rose-100">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center mt-0.5">
+          <LuInfo size={16} className="text-[#E8547A]" />
+        </div>
+        <div>
+          <p className="font-semibold text-stone-800 text-sm">Importante</p>
+          <p className="text-stone-500 text-sm mt-0.5 whitespace-pre-line leading-snug">
+            {message}
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          className="ml-auto text-stone-300 hover:text-stone-500 transition-colors text-lg leading-none"
+        >
+          ×
+        </button>
       </div>
     </div>
   );

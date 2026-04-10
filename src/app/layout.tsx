@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { poppins } from "@/app/fonts/fonts";
-
+import { dmSans, fraunces } from "@/app/fonts/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,20 +7,18 @@ export const metadata: Metadata = {
   other: {
     "tiktok-developers-site-verification": "nUsyhJuGzpEQx8csfuswF7Rs2s5OxsgC",
   },
-  description: "Doces Caseiros",
-  icons: {
-    icon: ["/favicon.ico?v=4"],
-  },
+  description: "Doces artesanais feitos com amor",
+  icons: { icon: ["/favicon.ico?v=4"] },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+    <html lang="pt-BR">
+      <body className={`${dmSans.variable} ${fraunces.variable} antialiased`}>
+        {children}
+      </body>
     </html>
   );
 }
